@@ -11,3 +11,7 @@ module "vpc" {
     az = var.az 
 
 }
+
+module "ecr" {
+    source = "./modules/ecr"
+}
