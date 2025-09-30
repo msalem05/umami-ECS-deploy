@@ -20,3 +20,9 @@ module "iam" {
     source = "./modules/iam"
     ecr_repository_arn = module.ecr.repository_arn
 }
+
+module "db" {
+    source = "./modules/rds"
+    subnet_ids = module.vpc.private_subnet_id
+
+}
