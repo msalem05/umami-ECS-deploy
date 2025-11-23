@@ -41,7 +41,7 @@ resource "aws_security_group" "alb" {
 
 }
 
-resource "aws_security_group" "ssh" {
+resource "aws_security_group" "alb_ssh" {
     name = var.alb_ssh_sg_name
     description = "Allowing SSH Inbound Traffic"
     vpc_id = var.vpc_id
