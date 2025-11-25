@@ -26,3 +26,28 @@ module "db" {
     subnet_ids = module.vpc.private_subnet_id
 
 }
+
+module "acm" {
+    source = "./modules/acm"
+
+}
+
+module "alb" {
+    source = "./modules/alb"
+    certificate_arn = module.acm.certificate_arn
+    vpc_id = module.vpc.vpc_id
+    vpc_cidr = var.vpc_cidr
+    alb_subnet = module.vpc.public_subnet_id
+
+}
+
+module "ecs" {
+    source = "./modules/ecs"
+    vpc_id = module.vpc.vpc_id
+    ecs_subnet = module.vpc.private_subnet_id
+    image_repo_url = module.ecr.repository_url
+    task_role_arn = module.iam.task_role_arn
+    execution_role_arn = module.iam.execution_role_arn
+    alb_sg = module.alb.alb_sg
+    alb_target_group_arn = module.alb.alb_target_group_arn
+}
