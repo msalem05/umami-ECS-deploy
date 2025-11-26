@@ -48,7 +48,7 @@ module "ecs" {
     image_repo_url = module.ecr.repository_url
     task_role_arn = module.iam.task_role_arn
     execution_role_arn = module.iam.execution_role_arn
-    alb_sg = module.alb.alb_sg
+    alb_sg_id = module.alb.alb_sg_id
     alb_target_group_arn = module.alb.alb_target_group_arn
 }
 
