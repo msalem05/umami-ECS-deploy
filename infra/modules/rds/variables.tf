@@ -44,3 +44,20 @@ variable "subnet_ids" {
     description = "ID of Private Subnets"
     type = list 
 }
+
+variable "vpc_id" {
+    
+}
+
+variable "vpc_cidr" {
+
+}
+
+variable "db_sg_name" {
+    type = string
+    default = "db-sg"
+}
+
+variable "ecs_task_sg_id" {
+
+}

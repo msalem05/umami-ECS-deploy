@@ -25,3 +25,24 @@ resource "aws_db_snapshot" "umami-db-snapshot" {
     db_instance_identifier = aws_db_instance.postgresql.identifier
     db_snapshot_identifier = var.snapshot_identifier
 }
+
+resource "aws_security_group" "db_sg" {
+    name = var.db_sg_name
+    description = "Allowing Inbound from PostgreSQL Port"
+    vpc_id = var.vpc_id
+
+    ingress {
+        from_port = 5432
+        to_port = 5432
+        protocol = "tcp"
+        security_groups = [var.ecs_task_sg_id]
+
+    }
+
+    egress {
+        from_port = 0
+        to_port = 0
+        protocol = "-1"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+}
