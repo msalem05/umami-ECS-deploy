@@ -22,7 +22,8 @@ resource "aws_ecs_task_definition" "umami_ecs_task" {
             essential = true
             portMappings = [
                 {
-                    containterPort = var.container_port
+                    containerPort = var.container_port
+                    protocol = "tcp"
 
                 }
             ]
