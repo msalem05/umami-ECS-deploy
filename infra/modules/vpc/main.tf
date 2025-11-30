@@ -32,10 +32,10 @@ resource "aws_nat_gateway" "nat" {
     depends_on = [ aws_internet_gateway.igw ]
 }
 
-resource "aws_nat_gateway_eip_association" "nat_eip" {
-    allocation_id = aws_eip.eip.id
-    nat_gateway_id = aws_nat_gateway.nat.id
-}
+# resource "aws_nat_gateway_eip_association" "nat_eip" {
+#     allocation_id = aws_eip.eip.id
+#     nat_gateway_id = aws_nat_gateway.nat.id
+# }
 
 resource "aws_internet_gateway" "igw" {
     vpc_id = aws_vpc.main.id
