@@ -26,7 +26,7 @@ data "aws_iam_policy_document" "ecs_task_execution" {
     }
 
     statement {
-        effect = "allow"
+        effect = "Allow"
         actions = [
             "ecr:BatchGetImage",
             "ecr:GetDownloadUrlForLayer",

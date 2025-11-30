@@ -9,6 +9,7 @@ resource "aws_ecs_cluster" "umami_cluster" {
 
 resource "aws_ecs_task_definition" "umami_ecs_task" {
     family = var.task_family_name
+    network_mode = "awsvpc"
     requires_compatibilities = ["FARGATE"]
     execution_role_arn = var.execution_role_arn
     task_role_arn = var.task_role_arn

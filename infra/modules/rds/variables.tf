@@ -12,7 +12,7 @@ variable "maximum_storage" {
 
 variable "db_name" {
     type = string
-    default = "umami-db"
+    default = "umamidb"
 }
 
 variable "instance_class" {
@@ -60,4 +60,9 @@ variable "db_sg_name" {
 
 variable "ecs_task_sg_id" {
 
+}
+
+variable "db_engine_version" {
+    type = string
+    default = "18.1"
 }

@@ -1,5 +1,5 @@
 resource "aws_acm_certificate" "alb_cert" {
-    domain_name = var.acm_domain_name
+    domain_name = "msalem-umami.com"
     validation_method = "DNS"
 
     lifecycle {

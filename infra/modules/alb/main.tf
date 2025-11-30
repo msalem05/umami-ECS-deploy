@@ -4,7 +4,7 @@ resource "aws_lb" "alb" {
     security_groups = [aws_security_group.alb.id]
     subnets = var.alb_subnet
 
-    enable_deletion_protection = true
+    enable_deletion_protection = false
 
 
 
@@ -78,7 +78,7 @@ resource "aws_lb_target_group" "umami_tg" {
     name = var.tg_name
     target_type = "alb"
     port = var.tg_port
-    protocol = "HTTP"
+    protocol = "TCP"
     vpc_id = var.vpc_id
 
     health_check {

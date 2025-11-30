@@ -1,10 +1,9 @@
-
 resource "aws_db_instance" "postgresql" {
     allocated_storage = var.minimum_storage
     max_allocated_storage = var.maximum_storage
-    db_name = "${var.db_name}-postgresql"
-    engine = "postgresql"
-    engine_version = "15.5"
+    db_name = var.db_name
+    engine = "postgres"
+    engine_version = var.db_engine_version
     instance_class = var.instance_class
     storage_encrypted = true
     multi_az = true
