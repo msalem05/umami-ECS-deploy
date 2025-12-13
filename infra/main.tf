@@ -32,6 +32,7 @@ module "db" {
 
 module "acm" {
     source = "./modules/acm"
+    dns_validation_record = module.route53.dns_validation_record
 
 }
 
@@ -53,10 +54,13 @@ module "ecs" {
     execution_role_arn = module.iam.execution_role_arn
     alb_sg_id = module.alb.alb_sg_id
     alb_target_group_arn = module.alb.alb_target_group_arn
+    alb_listener = module.alb.alb_listener
 }
 
 module "route53" {
     source = "./modules/route53"
     alb_dns_name = module.alb.alb_dns_name
     alb_zone_id = module.alb.alb_zone_id
+    acm_validation_record = module.acm.acm_validation_record
+    acm_validation_name = module.acm.acm_validation_name
     }
