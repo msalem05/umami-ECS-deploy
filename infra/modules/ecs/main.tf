@@ -70,5 +70,5 @@ resource "aws_ecs_service" "umami_ecs_service" {
       security_groups = [ aws_security_group.ecs_sg.id ]
     }
 
-    depends_on = [ module.alb.alb_listener_https ]
+    depends_on = [ var.alb_listener ]
 }
