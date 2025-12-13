@@ -93,4 +93,3 @@ resource "aws_lb_target_group" "umami_tg" {
     }
 
 }
-
