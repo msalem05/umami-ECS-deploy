@@ -76,9 +76,9 @@ resource "aws_lb_listener" "alb_listener_https" {
 
 resource "aws_lb_target_group" "umami_tg" {
     name = var.tg_name
-    target_type = "alb"
+    target_type = "ip"
     port = var.tg_port
-    protocol = "TCP"
+    protocol = "HTTP"
     vpc_id = var.vpc_id
 
     health_check {
@@ -93,3 +93,4 @@ resource "aws_lb_target_group" "umami_tg" {
     }
 
 }
+

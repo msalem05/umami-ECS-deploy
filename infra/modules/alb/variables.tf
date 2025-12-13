@@ -79,3 +79,7 @@ variable "certificate_arn" {
     type = string
 }
 
+variable "container_port" {
+    type = number
+    default = 3000
+}
