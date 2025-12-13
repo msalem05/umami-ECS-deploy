@@ -1,4 +1,22 @@
-resource "aws_db_instance" "postgresql" {
+# resource "aws_db_instance" "postgresql" {
+#     allocated_storage = var.minimum_storage
+#     max_allocated_storage = var.maximum_storage
+#     db_name = var.db_name
+#     engine = "postgres"
+#     engine_version = var.db_engine_version
+#     instance_class = var.instance_class
+#     storage_encrypted = true
+#     multi_az = true
+#     manage_master_user_password = true
+#     username = "mohammedsalem"
+#     maintenance_window = var.maintenance_window
+#     backup_retention_period = var.backup_retention_period
+#     skip_final_snapshot = false
+#     final_snapshot_identifier = var.final_snapshot
+
+# }
+
+resource "aws_db_instance" "postgres" {
     allocated_storage = var.minimum_storage
     max_allocated_storage = var.maximum_storage
     db_name = var.db_name
@@ -11,6 +29,8 @@ resource "aws_db_instance" "postgresql" {
     username = "mohammedsalem"
     maintenance_window = var.maintenance_window
     backup_retention_period = var.backup_retention_period
+    skip_final_snapshot = false
+    final_snapshot_identifier = var.final_snapshot
 
 }
 
@@ -21,8 +41,12 @@ resource "aws_db_subnet_group" "private"{
 }
 
 resource "aws_db_snapshot" "umami-db-snapshot" {
-    db_instance_identifier = aws_db_instance.postgresql.identifier
+    db_instance_identifier = aws_db_instance.postgres.identifier
     db_snapshot_identifier = var.snapshot_identifier
+
+    lifecycle {
+      prevent_destroy = false
+    }
 }
 
 resource "aws_security_group" "db_sg" {

@@ -66,3 +66,8 @@ variable "db_engine_version" {
     type = string
     default = "18.1"
 }
+
+variable "final_snapshot" {
+    type = string
+    default = "umami-final-snap"
+}
