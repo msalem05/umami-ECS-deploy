@@ -1,4 +1,4 @@
-variable "repo_name" {
-    type = string
-    default = "umami-app"
-}
+# variable "repo_name" {
+#     type = string
+#     default = "umami-app"
+# }
