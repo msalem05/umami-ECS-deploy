@@ -1,0 +1,58 @@
+name: Terraform Plan & Apply
+
+on:
+    push:
+    workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+  security-events: write
+
+defaults:
+  run: 
+    working-directory: infra
+
+jobs:
+  terraform-apply: 
+    runs-on: ubuntu-latest
+    # env:
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      - name: Configure AWS Credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::622703418024:role/terraform_oidc_role
+          aws-region: eu-west-2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.7.0
+
+      - name: Run Checkov Scan
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          output_format: cli,sarif
+          output_file_path: console,results.sarif
+      
+      - name: Upload Checkov Results to Security Tab
+        uses: github/codeql-action/upload-sarif@v2
+        if: success() || failure()
+        with:
+          sarif_file: results.sarif
+      
+      - name: Run Terraform Apply
+        run: |
+          terraform fmt -check -recursive
+          terraform init
+          terraform validate
+          terraform apply -auto-approve
+
+      
+      
+        
+
