@@ -49,6 +49,7 @@ variable "desired_count" {
 }
 
 variable "alb_target_group_arn" {
+  type = string
 }
 
 variable "ecs_sg_name" {
@@ -57,15 +58,15 @@ variable "ecs_sg_name" {
 }
 
 variable "vpc_id" {
-
+  type = string
 }
 
 variable "alb_sg_id" {
-
+  type = string
 }
 
 variable "ecs_subnet" {
-
+  type = string
 }
 
 variable "app_name" {
@@ -74,4 +75,5 @@ variable "app_name" {
 }
 
 variable "alb_listener" {
+  
 }
