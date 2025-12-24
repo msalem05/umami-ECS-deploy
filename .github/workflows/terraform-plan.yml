@@ -35,10 +35,19 @@ jobs:
       - name: Setup TFLint
         uses: terraform-linters/setup-tflint@v4
 
-      - name: Run Terraform Apply
+      - name: Terraform fmt
+        run: terraform fmt -check -recursive
+      
+      - name: Terraform init  
+        run: terraform init
+        
+      - name: Terraform Validate
+        run: terraform validate
+         
+      - name: TFLint
         run: |
-          terraform fmt -check -recursive
-          terraform init
-          terraform validate
-          tflint --recursive
-          terraform apply -auto-approve
+            tflint --init
+            tflint --recursive
+
+      - name: Terraform Plan
+        run: terraform plan
