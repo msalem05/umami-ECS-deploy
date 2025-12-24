@@ -8,11 +8,6 @@ variable "task_family_name" {
   default = "umami-task"
 }
 
-variable "network_mode" {
-  type    = string
-  default = "awsvpc"
-}
-
 variable "execution_role_arn" {
   description = "ECS Task Execution Role ARN"
 }
