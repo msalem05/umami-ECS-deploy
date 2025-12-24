@@ -1,52 +1,52 @@
 variable "minimum_storage" {
-    description = "Minimum storage for DB Storage Autoscaling"
-    type = number
-    default = 50
+  description = "Minimum storage for DB Storage Autoscaling"
+  type        = number
+  default     = 50
 }
 
 variable "maximum_storage" {
-    description = "Maximum storage for DB Storage Autoscaling"
-    type = number
-    default = 200
+  description = "Maximum storage for DB Storage Autoscaling"
+  type        = number
+  default     = 200
 }
 
 variable "db_name" {
-    type = string
-    default = "umamidb"
+  type    = string
+  default = "umamidb"
 }
 
 variable "instance_class" {
-    type = string
-    default = "db.t4g.micro"
+  type    = string
+  default = "db.t4g.micro"
 }
 
 variable "maintenance_window" {
-    type = string
-    default = "Fri:09:00-Fri:09:30"
+  type    = string
+  default = "Fri:09:00-Fri:09:30"
 }
 
 variable "snapshot_identifier" {
-    type = string
-    default = "umami-db-snapshot"
+  type    = string
+  default = "umami-db-snapshot"
 }
 
 variable "backup_retention_period" {
-    type = number
-    default = 7
+  type    = number
+  default = 7
 }
 
 variable "subnet_group_name" {
-    type = string
-    default = "private-subnets"
+  type    = string
+  default = "private-subnets"
 }
 
 variable "subnet_ids" {
-    description = "ID of Private Subnets"
-    type = list 
+  description = "ID of Private Subnets"
+  type        = list(any)
 }
 
 variable "vpc_id" {
-    
+
 }
 
 variable "vpc_cidr" {
@@ -54,8 +54,8 @@ variable "vpc_cidr" {
 }
 
 variable "db_sg_name" {
-    type = string
-    default = "db-sg"
+  type    = string
+  default = "db-sg"
 }
 
 variable "ecs_task_sg_id" {
@@ -63,11 +63,11 @@ variable "ecs_task_sg_id" {
 }
 
 variable "db_engine_version" {
-    type = string
-    default = "18.1"
+  type    = string
+  default = "18.1"
 }
 
 variable "final_snapshot" {
-    type = string
-    default = "umami-final-snap"
+  type    = string
+  default = "umami-final-snap"
 }

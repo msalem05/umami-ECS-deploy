@@ -1,9 +1,9 @@
 variable "bucket_name" {
-    type = string
-    default = "umami-tfstate"
+  type    = string
+  default = "umami-tfstate"
 }
 
 variable "retention_days" {
-    type = number
-    default = 30
+  type    = number
+  default = 30
 }

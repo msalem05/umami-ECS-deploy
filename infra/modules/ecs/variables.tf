@@ -1,61 +1,61 @@
 variable "cluster_name" {
-    type = string
-    default = "umami-ecs-cluster"
+  type    = string
+  default = "umami-ecs-cluster"
 }
 
 variable "task_family_name" {
-    type = string
-    default = "umami-task"
+  type    = string
+  default = "umami-task"
 }
 
 variable "network_mode" {
-    type = string
-    default = "awsvpc"
+  type    = string
+  default = "awsvpc"
 }
 
 variable "execution_role_arn" {
-    description = "ECS Task Execution Role ARN"
+  description = "ECS Task Execution Role ARN"
 }
 
 variable "task_role_arn" {
-    description = "ECS Task Role ARN"
+  description = "ECS Task Role ARN"
 }
 
 variable "container_name" {
-    type = string
-    default = "umami"
+  type    = string
+  default = "umami"
 }
 
 variable "image_repo_url" {
-    description = "ECR Repo URL"
+  description = "ECR Repo URL"
 }
 
 variable "task_cpu" {
-    type = number
-    default = 1024
+  type    = number
+  default = 1024
 }
 
 variable "task_memory" {
-    type = number
-    default = 2048
+  type    = number
+  default = 2048
 }
 
 variable "container_port" {
-    type = number
-    default = 3000
+  type    = number
+  default = 3000
 }
 
 variable "desired_count" {
-    type = number
-    default = 2
+  type    = number
+  default = 2
 }
 
 variable "alb_target_group_arn" {
 }
 
 variable "ecs_sg_name" {
-    type = string
-    default = "umami_ecs_sg"
+  type    = string
+  default = "umami_ecs_sg"
 }
 
 variable "vpc_id" {
@@ -71,8 +71,8 @@ variable "ecs_subnet" {
 }
 
 variable "app_name" {
-    type = string
-    default = "umami-service"
+  type    = string
+  default = "umami-service"
 }
 
 variable "alb_listener" {

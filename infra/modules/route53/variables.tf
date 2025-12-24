@@ -1,14 +1,14 @@
 variable "record_name" {
-    type = string
-    default = "alb_dns"
+  type    = string
+  default = "alb_dns"
 }
 
 variable "alb_dns_name" {
-    type = string
+  type = string
 }
 
 variable "alb_zone_id" {
-    type = string
+  type = string
 }
 
 variable "acm_validation_name" {
@@ -16,10 +16,10 @@ variable "acm_validation_name" {
 }
 
 variable "acm_validation_record" {
-    
+
 }
 
 variable "ttl" {
-    type = number
-    default = 60
+  type    = number
+  default = 60
 }

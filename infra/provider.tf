@@ -6,11 +6,11 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 6.0"
     }
-   
+
   }
 }
 
 provider "aws" {
-    alias = "west"
-    region = "eu-west-2"
+  alias  = "west"
+  region = "eu-west-2"
 }
