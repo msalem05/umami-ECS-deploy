@@ -9,10 +9,12 @@ variable "task_family_name" {
 }
 
 variable "execution_role_arn" {
+  type = string
   description = "ECS Task Execution Role ARN"
 }
 
 variable "task_role_arn" {
+  type = string
   description = "ECS Task Role ARN"
 }
 
