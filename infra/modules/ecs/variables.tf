@@ -24,6 +24,7 @@ variable "container_name" {
 }
 
 variable "image_repo_url" {
+  type = string
   description = "ECR Repo URL"
 }
 
