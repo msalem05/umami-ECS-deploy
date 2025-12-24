@@ -4,7 +4,7 @@ variable "alb_name" {
 }
 
 variable "vpc_id" {
-
+  type = string
 }
 
 variable "alb_http_sg_name" {
