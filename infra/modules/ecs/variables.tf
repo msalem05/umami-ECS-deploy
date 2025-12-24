@@ -66,7 +66,7 @@ variable "alb_sg_id" {
 }
 
 variable "ecs_subnet" {
-  type = string
+  type = list(string)
 }
 
 variable "app_name" {
@@ -75,5 +75,5 @@ variable "app_name" {
 }
 
 variable "alb_listener" {
-  
+
 }
