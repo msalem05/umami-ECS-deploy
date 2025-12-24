@@ -13,7 +13,7 @@ variable "alb_http_sg_name" {
 }
 
 variable "vpc_cidr" {
-
+  type = string
 }
 
 variable "alb_ssh_sg_name" {
