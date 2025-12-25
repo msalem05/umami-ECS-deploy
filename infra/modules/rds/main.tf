@@ -1,3 +1,14 @@
+terraform {
+  required_version = ">= 1.3.0"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
 resource "aws_db_instance" "postgres" {
   allocated_storage           = var.minimum_storage
   max_allocated_storage       = var.maximum_storage
