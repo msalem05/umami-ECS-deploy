@@ -28,33 +28,32 @@ resource "aws_lb" "alb" {
 
 resource "aws_security_group" "alb" {
   name        = var.alb_http_sg_name
-  description = "Allowing HTTP and HTTPS Inbound Traffic"
+  description = "Security group for ALB allowing HTTP and HTTPS inbound traffic"
   vpc_id      = var.vpc_id
 
   ingress {
+    description = "Allow HTTP traffic from within the VPC"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = [var.vpc_cidr]
+  }
 
+  ingress {
+    description = "Allow HTTPS traffic from within the VPC"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = [var.vpc_cidr]
   }
 
   egress {
+    description = "Allow all outbound traffic"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = [var.vpc_cidr]
-
-  }
-
-
 }
 
 resource "aws_security_group" "alb_ssh" {
