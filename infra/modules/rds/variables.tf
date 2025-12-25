@@ -46,11 +46,11 @@ variable "subnet_ids" {
 }
 
 variable "vpc_id" {
-
+  type = string
 }
 
 variable "vpc_cidr" {
-
+  type = string
 }
 
 variable "db_sg_name" {
@@ -59,7 +59,7 @@ variable "db_sg_name" {
 }
 
 variable "ecs_task_sg_id" {
-
+  type = string
 }
 
 variable "db_engine_version" {
