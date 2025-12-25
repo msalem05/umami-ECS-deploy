@@ -18,7 +18,3 @@ variable "ecs_task_execution_policy_name" {
   default = "task_execution_policy"
 }
 
-variable "ecr_repository_arn" {
-  type        = string
-  description = "ARN for the ECR repo"
-}
