@@ -13,7 +13,7 @@ defaults:
     working-directory: infra
 
 jobs:
-  terraform-apply: 
+  terraform-plan: 
     runs-on: ubuntu-latest
     # env:
 
