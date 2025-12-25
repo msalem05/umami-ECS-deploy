@@ -1,0 +1,46 @@
+name: Terraform Destroy
+
+on:
+    push:
+    workflow_dispatch:
+      inputs:
+        confirm:
+          description: "Type DESTROY to confirm"
+          required: true
+
+permissions:
+  id-token: write
+  contents: read
+
+defaults:
+  run: 
+    working-directory: infra
+
+jobs:
+  terraform-destroy: 
+    runs-on: ubuntu-latest
+    # env:
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      - name: Configure AWS Credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::622703418024:role/terraform_oidc_role
+          aws-region: eu-west-2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.7.0
+
+      - name: Terraform init  
+        run: terraform init
+
+      - name: Terraform Plan (Destroy)
+        run: terraform plan -destroy
+
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve
