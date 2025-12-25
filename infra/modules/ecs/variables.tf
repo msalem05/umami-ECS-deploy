@@ -9,12 +9,12 @@ variable "task_family_name" {
 }
 
 variable "execution_role_arn" {
-  type = string
+  type        = string
   description = "ECS Task Execution Role ARN"
 }
 
 variable "task_role_arn" {
-  type = string
+  type        = string
   description = "ECS Task Role ARN"
 }
 
@@ -24,7 +24,7 @@ variable "container_name" {
 }
 
 variable "image_repo_url" {
-  type = string
+  type        = string
   description = "ECR Repo URL"
 }
 
