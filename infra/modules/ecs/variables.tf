@@ -73,3 +73,7 @@ variable "app_name" {
   type    = string
   default = "umami-service"
 }
+
+variable "alb_listener_arn" {
+  type = string
+}
