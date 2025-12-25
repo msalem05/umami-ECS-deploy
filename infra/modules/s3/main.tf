@@ -12,6 +12,10 @@ terraform {
 resource "aws_s3_bucket" "tf_state" {
   bucket              = var.bucket_name
   object_lock_enabled = true
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_s3_bucket_versioning" "tf_state" {
