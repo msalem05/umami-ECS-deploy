@@ -14,7 +14,8 @@ resource "aws_lb" "alb" {
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb.id]
   subnets            = var.alb_subnet
-
+  drop_invalid_header_fields = true
+  
   enable_deletion_protection = true
 
 
