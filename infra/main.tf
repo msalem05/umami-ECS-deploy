@@ -17,7 +17,7 @@ module "ecr" {
 }
 
 module "iam" {
-  source             = "./modules/iam"
+  source = "./modules/iam"
 }
 
 module "db" {
