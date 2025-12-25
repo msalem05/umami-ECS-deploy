@@ -29,7 +29,6 @@ resource "aws_iam_role_policy" "ecs_task_execution" {
           "ecr:GetDownloadUrlForLayer",
           "ecr:GetAuthorizationToken"
         ]
-        Effect   = "Allow"
         Resource = "*"
       }
     ]
