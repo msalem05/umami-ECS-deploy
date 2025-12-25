@@ -40,7 +40,15 @@ jobs:
         run: terraform init
 
       - name: Terraform Plan (Destroy)
-        run: terraform plan -destroy
+        run: |
+            terraform plan -destroy \
+              -target=module.ecs \
+              -target=module.alb \
+              -target=module.vpc \
+              -target=module.rds \
+              -target=module.acm \
+              -target=module.iam \
+              -target=module.route53
 
       - name: Terraform Destroy
         run: | 
