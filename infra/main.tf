@@ -18,7 +18,6 @@ module "ecr" {
 
 module "iam" {
   source             = "./modules/iam"
-  ecr_repository_arn = module.ecr.repository_arn
 }
 
 module "db" {
@@ -26,7 +25,6 @@ module "db" {
   vpc_id         = module.vpc.vpc_id
   subnet_ids     = module.vpc.private_subnet_id
   ecs_task_sg_id = module.ecs.ecs_task_sg_id
-  vpc_cidr       = var.vpc_cidr
 
 }
 
