@@ -15,7 +15,7 @@ resource "aws_lb" "alb" {
   security_groups    = [aws_security_group.alb.id]
   subnets            = var.alb_subnet
 
-  enable_deletion_protection = false
+  enable_deletion_protection = true
 
 
 
