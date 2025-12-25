@@ -79,3 +79,6 @@ variable "certificate_arn" {
   type = string
 }
 
+variable "alb_logs_bucket" {
+  type = string
+}

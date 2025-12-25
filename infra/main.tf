@@ -40,6 +40,7 @@ module "alb" {
   vpc_id          = module.vpc.vpc_id
   vpc_cidr        = var.vpc_cidr
   alb_subnet      = module.vpc.public_subnet_id
+  alb_logs_bucket = module.s3.alb_logs_bucket
 
 }
 

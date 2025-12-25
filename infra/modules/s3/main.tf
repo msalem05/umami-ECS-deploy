@@ -44,3 +44,11 @@ resource "aws_s3_bucket_object_lock_configuration" "tf_state" {
     prevent_destroy = true
   }
 }
+
+resource "aws_s3_bucket" "alb_access_logs" {
+  bucket = var.alb_logs_bucket_name
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
