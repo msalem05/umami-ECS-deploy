@@ -43,4 +43,13 @@ jobs:
         run: terraform plan -destroy
 
       - name: Terraform Destroy
-        run: terraform destroy -auto-approve
+        run: | 
+          terraform destroy -auto-approve \
+            -target=module.ecs \
+            -target=module.alb \
+            -target=module.vpc \
+            -target=module.rds \
+            -target=module.acm \
+            -target=module.iam \
+            -target=module.route53
+
