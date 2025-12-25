@@ -24,6 +24,10 @@ resource "aws_s3_bucket_versioning" "tf_state" {
   versioning_configuration {
     status = "Enabled"
   }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_s3_bucket_object_lock_configuration" "tf_state" {
@@ -36,4 +40,7 @@ resource "aws_s3_bucket_object_lock_configuration" "tf_state" {
     }
   }
 
+  lifecycle {
+    prevent_destroy = true
+  }
 }
