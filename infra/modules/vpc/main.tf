@@ -21,7 +21,7 @@ resource "aws_subnet" "public" {
   count                   = length(var.az)
   cidr_block              = var.public_subnet_cidr[count.index]
   availability_zone       = var.az[count.index]
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
 
 }
 
