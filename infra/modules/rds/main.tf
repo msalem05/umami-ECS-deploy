@@ -25,6 +25,7 @@ resource "aws_db_instance" "postgres" {
   skip_final_snapshot         = false
   final_snapshot_identifier   = var.final_snapshot
   auto_minor_version_upgrade = true
+  deletion_protection = true
 
 }
 
