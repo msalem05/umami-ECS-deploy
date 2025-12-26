@@ -67,3 +67,18 @@ variable "final_snapshot" {
   type    = string
   default = "umami-final-snap"
 }
+
+variable "monitoring_interval" {
+  type = number
+  default = 60
+}
+
+variable "performance_insights_retention_period" {
+  type = number
+  default = 7           #Free Tier
+}
+
+variable "cloudwatch_logs_exports" {
+  type = list(string)
+  default = ["postgres", "upgrade"]
+}

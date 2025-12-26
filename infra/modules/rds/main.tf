@@ -24,8 +24,13 @@ resource "aws_db_instance" "postgres" {
   backup_retention_period     = var.backup_retention_period
   skip_final_snapshot         = false
   final_snapshot_identifier   = var.final_snapshot
-  auto_minor_version_upgrade = true
-  deletion_protection = true
+  auto_minor_version_upgrade  = true
+  deletion_protection         = true
+  monitoring_interval         = var.monitoring_interval
+  performance_insights_enabled = true
+  performance_insights_retention_period = var.performance_insights_retention_period
+  iam_database_authentication_enabled = true
+  enabled_cloudwatch_logs_exports = var.cloudwatch_logs_exports
 
 }
 
@@ -46,21 +51,14 @@ resource "aws_db_snapshot" "umami-db-snapshot" {
 
 resource "aws_security_group" "db_sg" {
   name        = var.db_sg_name
-  description = "Allowing Inbound from PostgreSQL Port"
+  description = "Security group for RDS PostgreSQL"
   vpc_id      = var.vpc_id
 
   ingress {
+    description     = "Allow PostgreSQL from ECS tasks"
     from_port       = 5432
     to_port         = 5432
     protocol        = "tcp"
     security_groups = [var.ecs_task_sg_id]
-
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
   }
 }
