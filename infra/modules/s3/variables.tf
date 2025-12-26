@@ -12,3 +12,8 @@ variable "alb_logs_bucket_name" {
   type = string
   default = "alb-access-logs"
 }
+
+variable "deletion_window" {
+  type = number
+  default = 30
+}
