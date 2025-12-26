@@ -73,3 +73,12 @@ variable "app_name" {
   type    = string
   default = "umami-service"
 }
+
+variable "db_port" {
+  type = string
+  default = "5432"
+}
+
+variable "db_sg_id" {
+  type = string
+}

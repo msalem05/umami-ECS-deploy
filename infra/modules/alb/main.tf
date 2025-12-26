@@ -56,25 +56,27 @@ resource "aws_security_group" "alb" {
   }
 }
 
-resource "aws_security_group" "alb_ssh" {
-  name        = var.alb_ssh_sg_name
-  description = "Allowing SSH Inbound Traffic"
-  vpc_id      = var.vpc_id
+# resource "aws_security_group" "alb_ssh" {
+#   name        = var.alb_ssh_sg_name
+#   description = "Security group for SSH access"
+#   vpc_id      = var.vpc_id
 
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [var.vpc_cidr]
-  }
+#   ingress {
+#     description = "Allow SSH from within the VPC"
+#     from_port   = 22
+#     to_port     = 22
+#     protocol    = "tcp"
+#     cidr_blocks = [var.vpc_cidr]
+#   }
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
+#   egress {
+#     description = "Allow all outbound traffic"
+#     from_port   = 0
+#     to_port     = 0
+#     protocol    = "-1"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
+# }
 
 resource "aws_lb_listener" "alb_listener_https" {
   load_balancer_arn = aws_lb.alb.arn
