@@ -48,7 +48,7 @@ resource "aws_security_group" "alb" {
   }
 
   egress {
-    description = "Allow all outbound traffic"
+    description = "Allow Outbound Traffic to ECS Task"
     from_port   = 3000
     to_port     = 3000
     protocol    = "tcp"
