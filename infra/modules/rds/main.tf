@@ -31,6 +31,8 @@ resource "aws_db_instance" "postgres" {
   performance_insights_retention_period = var.performance_insights_retention_period
   iam_database_authentication_enabled = true
   enabled_cloudwatch_logs_exports = var.cloudwatch_logs_exports
+  copy_tags_to_snapshot = true
+  vpc_security_group_ids = [aws_security_group.db_sg.id]
 
 }
 
