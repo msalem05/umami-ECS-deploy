@@ -15,7 +15,7 @@ resource "aws_lb" "alb" {
   security_groups    = [aws_security_group.alb.id]
   subnets            = var.alb_subnet
   drop_invalid_header_fields = true
-
+  
   enable_deletion_protection = true
 
   access_logs {
@@ -82,7 +82,7 @@ resource "aws_lb_listener" "alb_listener_https" {
   load_balancer_arn = aws_lb.alb.arn
   port              = "443"
   protocol          = "HTTPS"
-  ssl_policy        = var.ssl_policy
+  ssl_policy        = "ELBSecurityPolicy-TLS-1-2-2017-01"
   certificate_arn   = var.certificate_arn
 
   default_action {

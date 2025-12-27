@@ -25,11 +25,6 @@ variable "alb_subnet" {
   type = list(string)
 }
 
-variable "ssl_policy" {
-  type    = string
-  default = "ELBSecurityPolicy-2016-08"
-}
-
 variable "tg_name" {
   type    = string
   default = "umami-alb-tg"
