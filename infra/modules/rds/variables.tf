@@ -82,3 +82,8 @@ variable "cloudwatch_logs_exports" {
   type = list(string)
   default = ["postgres", "upgrade"]
 }
+
+variable "deletion_window" {
+  type = number
+  default = 30
+}
