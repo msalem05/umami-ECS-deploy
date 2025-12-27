@@ -16,6 +16,17 @@ resource "aws_vpc" "main" {
 
 }
 
+resource "aws_default_security_group" "main_sg" {
+  vpc_id = aws_vpc.main.id
+
+  ingress = []
+  egress = []
+
+  tags = {
+    Name = "default-sg-deny-all"
+  }
+}
+
 resource "aws_subnet" "public" {
   vpc_id                  = aws_vpc.main.id
   count                   = length(var.az)
