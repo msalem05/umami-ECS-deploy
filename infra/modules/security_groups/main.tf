@@ -35,7 +35,7 @@ resource "aws_security_group" "alb" {
     from_port       = 3000
     to_port         = 3000
     protocol        = "tcp"
-    cidr_blocks     = ["0.0.0.0/0"]
+    cidr_blocks     = [aws_security_group.ecs_sg.id]
   }
 }
 
@@ -49,7 +49,7 @@ resource "aws_security_group" "ecs_sg" {
     from_port       = var.container_port
     to_port         = var.container_port
     protocol        = "tcp"
-    security_groups = [var.alb_sg_id]
+    security_groups = [aws_security_group.alb.id]
   }
 
   egress {
@@ -79,7 +79,7 @@ resource "aws_security_group" "db_sg" {
     from_port       = 5432
     to_port         = 5432
     protocol        = "tcp"
-    security_groups = [var.ecs_task_sg_id]
+    security_groups = [aws_security_group.ecs_sg.id]
   }
 }
 
