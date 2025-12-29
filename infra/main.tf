@@ -54,7 +54,7 @@ module "ecs" {
   execution_role_arn   = module.iam.execution_role_arn
   alb_sg_id            = module.alb.alb_sg_id
   alb_target_group_arn = module.alb.alb_target_group_arn
-  db_sg_id             = module.rds.db_sg_id
+  db_sg_id             = module.db.db_sg_id
 }
 
 module "route53" {
