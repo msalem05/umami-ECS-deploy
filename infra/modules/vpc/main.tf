@@ -20,7 +20,7 @@ resource "aws_default_security_group" "main_sg" {
   vpc_id = aws_vpc.main.id
 
   ingress = []
-  egress = []
+  egress  = []
 
   tags = {
     Name = "default-sg-deny-all"

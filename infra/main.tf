@@ -41,7 +41,7 @@ module "alb" {
   vpc_cidr        = var.vpc_cidr
   alb_subnet      = module.vpc.public_subnet_id
   alb_logs_bucket = module.s3.alb_logs_bucket
-  ecs_task_sg_id = module.ecs.ecs_task_sg_id
+  ecs_task_sg_id  = module.ecs.ecs_task_sg_id
 
 }
 

@@ -10,27 +10,27 @@ terraform {
 }
 
 resource "aws_db_instance" "postgres" {
-  allocated_storage           = var.minimum_storage
-  max_allocated_storage       = var.maximum_storage
-  db_name                     = var.db_name
-  engine                      = "postgres"
-  engine_version              = var.db_engine_version
-  instance_class              = var.instance_class
-  storage_encrypted           = true
-  multi_az                    = true
-  manage_master_user_password = true
-  username                    = "mohammedsalem"
-  maintenance_window          = var.maintenance_window
-  backup_retention_period     = var.backup_retention_period
-  skip_final_snapshot         = false
-  final_snapshot_identifier   = var.final_snapshot
-  auto_minor_version_upgrade  = true
-  deletion_protection         = true
-  monitoring_interval         = var.monitoring_interval
+  allocated_storage                   = var.minimum_storage
+  max_allocated_storage               = var.maximum_storage
+  db_name                             = var.db_name
+  engine                              = "postgres"
+  engine_version                      = var.db_engine_version
+  instance_class                      = var.instance_class
+  storage_encrypted                   = true
+  multi_az                            = true
+  manage_master_user_password         = true
+  username                            = "mohammedsalem"
+  maintenance_window                  = var.maintenance_window
+  backup_retention_period             = var.backup_retention_period
+  skip_final_snapshot                 = false
+  final_snapshot_identifier           = var.final_snapshot
+  auto_minor_version_upgrade          = true
+  deletion_protection                 = true
+  monitoring_interval                 = var.monitoring_interval
   iam_database_authentication_enabled = true
-  enabled_cloudwatch_logs_exports = var.cloudwatch_logs_exports
-  copy_tags_to_snapshot = true
-  vpc_security_group_ids = [aws_security_group.db_sg.id]
+  enabled_cloudwatch_logs_exports     = var.cloudwatch_logs_exports
+  copy_tags_to_snapshot               = true
+  vpc_security_group_ids              = [aws_security_group.db_sg.id]
 
 }
 

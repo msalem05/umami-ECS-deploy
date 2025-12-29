@@ -10,9 +10,9 @@ terraform {
 }
 
 resource "aws_kms_key" "state" {
-  description = "KMS key for Terraform state bucket encryption"
+  description             = "KMS key for Terraform state bucket encryption"
   deletion_window_in_days = var.deletion_window
-  enable_key_rotation = true
+  enable_key_rotation     = true
 }
 
 resource "aws_s3_bucket" "tf_state" {
@@ -29,8 +29,8 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "encrypt" {
 
   rule {
     apply_server_side_encryption_by_default {
-      kms_master_key_id =  aws_kms_key.state.arn
-      sse_algorithm = "aws:kms"
+      kms_master_key_id = aws_kms_key.state.arn
+      sse_algorithm     = "aws:kms"
     }
   }
 }
@@ -63,17 +63,17 @@ resource "aws_s3_bucket_object_lock_configuration" "tf_state" {
 }
 
 resource "aws_kms_key" "alb_logs" {
-  description = "KMS key for ALB Access Logs bucket encryption"
+  description             = "KMS key for ALB Access Logs bucket encryption"
   deletion_window_in_days = var.deletion_window
-  enable_key_rotation = true
+  enable_key_rotation     = true
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "alb_logs" {
   bucket = aws_s3_bucket.alb_access_logs.id
   rule {
     apply_server_side_encryption_by_default {
-      kms_master_key_id =  aws_kms_key.alb_logs.arn
-      sse_algorithm = "AES256"
+      kms_master_key_id = aws_kms_key.alb_logs.arn
+      sse_algorithm     = "AES256"
     }
   }
 }
@@ -91,18 +91,18 @@ data "aws_caller_identity" "account" {
 }
 
 resource "aws_s3_bucket_policy" "alb_logs" {
-  bucket = aws_s3_bucket.alb_access_logs.id 
+  bucket = aws_s3_bucket.alb_access_logs.id
 
-  policy = jsonencode ({
-    Version = "2012-10-17" 
+  policy = jsonencode({
+    Version = "2012-10-17"
     Statement = [
       {
-        Sid = "ALBAccessLogsWrite"
+        Sid    = "ALBAccessLogsWrite"
         Effect = "Allow"
         Principal = {
           Service = "logdelivery.elasticloadbalancing.amazonaws.com"
         }
-        Action = "s3:PutObject"
+        Action   = "s3:PutObject"
         Resource = "arn:aws:s3:::${aws_s3_bucket.alb_access_logs.bucket}/AWSLogs/${data.aws_caller_identity.account.account_id}/*"
       }
     ]

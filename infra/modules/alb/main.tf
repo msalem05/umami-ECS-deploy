@@ -10,16 +10,16 @@ terraform {
 }
 
 resource "aws_lb" "alb" {
-  name               = var.alb_name
-  load_balancer_type = "application"
-  security_groups    = [aws_security_group.alb.id]
-  subnets            = var.alb_subnet
+  name                       = var.alb_name
+  load_balancer_type         = "application"
+  security_groups            = [aws_security_group.alb.id]
+  subnets                    = var.alb_subnet
   drop_invalid_header_fields = true
-  
+
   enable_deletion_protection = true
 
   access_logs {
-    bucket = var.alb_logs_bucket 
+    bucket  = var.alb_logs_bucket
     enabled = true
   }
 
@@ -48,10 +48,10 @@ resource "aws_security_group" "alb" {
   }
 
   egress {
-    description = "Allow Outbound Traffic to ECS Task"
-    from_port   = 3000
-    to_port     = 3000
-    protocol    = "tcp"
+    description     = "Allow Outbound Traffic to ECS Task"
+    from_port       = 3000
+    to_port         = 3000
+    protocol        = "tcp"
     security_groups = [var.ecs_task_sg_id]
   }
 }

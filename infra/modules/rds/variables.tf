@@ -69,21 +69,21 @@ variable "final_snapshot" {
 }
 
 variable "monitoring_interval" {
-  type = number
+  type    = number
   default = 60
 }
 
 variable "performance_insights_retention_period" {
-  type = number
-  default = 7           #Free Tier
+  type    = number
+  default = 7 #Free Tier
 }
 
 variable "cloudwatch_logs_exports" {
-  type = list(string)
+  type    = list(string)
   default = ["postgres", "upgrade"]
 }
 
 variable "deletion_window" {
-  type = number
+  type    = number
   default = 30
 }

@@ -57,18 +57,18 @@ resource "aws_security_group" "ecs_sg" {
   }
 
   egress {
-    description = "Allow outbound traffic from ECS tasks to RDS Instance"
-    from_port   = var.db_port
-    to_port     = var.db_port
-    protocol    = "tcp"
+    description     = "Allow outbound traffic from ECS tasks to RDS Instance"
+    from_port       = var.db_port
+    to_port         = var.db_port
+    protocol        = "tcp"
     security_groups = [var.db_sg_id]
   }
 
   egress {
     description = "Allow outbound traffic from ECS tasks to AWS services"
-    from_port = 443
-    to_port = 443
-    protocol = "tcp"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }

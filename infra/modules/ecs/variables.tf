@@ -75,7 +75,7 @@ variable "app_name" {
 }
 
 variable "db_port" {
-  type = string
+  type    = string
   default = "5432"
 }
 
