@@ -1,0 +1,9 @@
+quiet: true
+
+# Fail the run only when findings are MEDIUM or higher
+soft_fail_on:
+  - LOW
+
+framework:
+  - terraform
+  - terraform_plan

@@ -80,7 +80,7 @@ variable "performance_insights_retention_period" {
 
 variable "cloudwatch_logs_exports" {
   type    = list(string)
-  default = ["postgres", "upgrade"]
+  default = ["postgresql", "upgrade", "iam-db-auth-error"]
 }
 
 variable "deletion_window" {

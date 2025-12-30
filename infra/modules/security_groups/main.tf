@@ -32,6 +32,7 @@ resource "aws_security_group_rule" "alb_ingress_https" {
   security_group_id = aws_security_group.alb.id
   from_port = 443
   to_port = 443
+  cidr_blocks = [var.vpc_cidr]
   protocol = "tcp"
 }
 
