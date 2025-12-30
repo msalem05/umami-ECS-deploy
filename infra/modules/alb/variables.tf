@@ -78,6 +78,6 @@ variable "alb_logs_bucket" {
   type = string
 }
 
-variable "ecs_task_sg_id" {
+variable "alb_sg_id" {
   type = string
 }

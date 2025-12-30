@@ -87,3 +87,7 @@ variable "deletion_window" {
   type    = number
   default = 30
 }
+
+variable "db_sg_id" {
+  type = string
+}

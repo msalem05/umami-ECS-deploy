@@ -9,77 +9,92 @@ terraform {
   }
 }
 
+#ALB Security Group + Rules
 resource "aws_security_group" "alb" {
   name        = var.alb_http_sg_name
   description = "Security group for ALB allowing HTTP and HTTPS inbound traffic"
   vpc_id      = var.vpc_id
-
-  ingress {
-    description = "Allow HTTP traffic from within the VPC"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = [var.vpc_cidr]
-  }
-
-  ingress {
-    description = "Allow HTTPS traffic from within the VPC"
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = [var.vpc_cidr]
-  }
-
-  egress {
-    description     = "Allow Outbound Traffic to ECS Task"
-    from_port       = 3000
-    to_port         = 3000
-    protocol        = "tcp"
-    cidr_blocks     = [aws_security_group.ecs_sg.id]
-  }
 }
 
+resource "aws_security_group_rule" "alb_ingress_http" {
+  type = "ingress"
+  description = "Allow HTTP traffic from within the VPC"
+  security_group_id = aws_security_group.alb.id
+  from_port = 80
+  to_port = 80
+  cidr_blocks = [var.vpc_cidr]
+  protocol = "tcp"
+}
+
+resource "aws_security_group_rule" "alb_ingress_https" {
+  type = "ingress"
+  description = "Allow HTTPS traffic from within the VPC"
+  security_group_id = aws_security_group.alb.id
+  from_port = 443
+  to_port = 443
+  protocol = "tcp"
+}
+
+resource "aws_security_group_rule" "alb_egress_ecs" {
+  type = "egress"
+  description     = "Allow Outbound Traffic to ECS Task"
+  security_group_id = aws_security_group.alb.id
+  from_port = var.container_port
+  to_port = var.container_port
+  source_security_group_id = aws_security_group.ecs_sg.id
+  protocol = "tcp"
+}
+
+#ECS Task Security Group and Rules
 resource "aws_security_group" "ecs_sg" {
   name        = var.ecs_sg_name
   description = "Security group for ECS tasks"
   vpc_id      = var.vpc_id
-
-  ingress {
-    description     = "Allow inbound from ALB to ECS tasks on container port"
-    from_port       = var.container_port
-    to_port         = var.container_port
-    protocol        = "tcp"
-    security_groups = [aws_security_group.alb.id]
-  }
-
-  egress {
-    description     = "Allow outbound traffic from ECS tasks to RDS Instance"
-    from_port       = var.db_port
-    to_port         = var.db_port
-    protocol        = "tcp"
-    security_groups = [var.db_sg_id]
-  }
-
-  egress {
-    description = "Allow outbound traffic from ECS tasks to AWS services"
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
 }
 
+resource "aws_security_group_rule" "ecs_ingress_alb" {
+  type = "ingress"
+  description     = "Allow inbound from ALB to ECS tasks on container port"
+  security_group_id = aws_security_group.ecs_sg.id
+  from_port = var.container_port
+  to_port = var.container_port
+  source_security_group_id = aws_security_group.alb.id
+  protocol = "tcp"
+}
+
+resource "aws_security_group_rule" "ecs_egress_db" {
+  type = "egress"
+  description     = "Allow outbound traffic from ECS tasks to DB Instance"
+  security_group_id = aws_security_group.ecs_sg.id
+  from_port = var.db_port
+  to_port = var.db_port
+  source_security_group_id = aws_security_group.db_sg.id
+  protocol = "tcp"
+}
+
+resource "aws_security_group_rule" "ecs_egress" {
+  type = "egress"
+  description = "Allow outbound traffic from ECS tasks to AWS services"
+  security_group_id = aws_security_group.ecs_sg.id
+  from_port = 443
+  to_port = 443
+  cidr_blocks = ["0.0.0.0/0"]
+  protocol = "tcp"
+}
+
+#DB Security Group + Rule
 resource "aws_security_group" "db_sg" {
   name        = var.db_sg_name
   description = "Security group for RDS PostgreSQL"
   vpc_id      = var.vpc_id
-
-  ingress {
-    description     = "Allow PostgreSQL from ECS tasks"
-    from_port       = 5432
-    to_port         = 5432
-    protocol        = "tcp"
-    security_groups = [aws_security_group.ecs_sg.id]
-  }
 }
 
+resource "aws_security_group_rule" "db_ingress" {
+  type = "ingress"
+  description     = "Allow PostgreSQL from ECS tasks"
+  security_group_id = aws_security_group.db_sg.id
+  from_port = 5432
+  to_port = 5432
+  source_security_group_id = aws_security_group.ecs_sg.id
+  protocol = "tcp"
+}

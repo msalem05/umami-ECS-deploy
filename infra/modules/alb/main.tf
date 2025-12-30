@@ -12,7 +12,7 @@ terraform {
 resource "aws_lb" "alb" {
   name                       = var.alb_name
   load_balancer_type         = "application"
-  security_groups            = [aws_security_group.alb.id]
+  security_groups            = [var.alb_sg_id]
   subnets                    = var.alb_subnet
   drop_invalid_header_fields = true
 
@@ -22,39 +22,37 @@ resource "aws_lb" "alb" {
     bucket  = var.alb_logs_bucket
     enabled = true
   }
-
-
 }
 
-resource "aws_security_group" "alb" {
-  name        = var.alb_http_sg_name
-  description = "Security group for ALB allowing HTTP and HTTPS inbound traffic"
-  vpc_id      = var.vpc_id
+# resource "aws_security_group" "alb" {
+#   name        = var.alb_http_sg_name
+#   description = "Security group for ALB allowing HTTP and HTTPS inbound traffic"
+#   vpc_id      = var.vpc_id
 
-  ingress {
-    description = "Allow HTTP traffic from within the VPC"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = [var.vpc_cidr]
-  }
+#   ingress {
+#     description = "Allow HTTP traffic from within the VPC"
+#     from_port   = 80
+#     to_port     = 80
+#     protocol    = "tcp"
+#     cidr_blocks = [var.vpc_cidr]
+#   }
 
-  ingress {
-    description = "Allow HTTPS traffic from within the VPC"
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = [var.vpc_cidr]
-  }
+#   ingress {
+#     description = "Allow HTTPS traffic from within the VPC"
+#     from_port   = 443
+#     to_port     = 443
+#     protocol    = "tcp"
+#     cidr_blocks = [var.vpc_cidr]
+#   }
 
-  egress {
-    description     = "Allow Outbound Traffic to ECS Task"
-    from_port       = 3000
-    to_port         = 3000
-    protocol        = "tcp"
-    cidr_blocks     = ["0.0.0.0/0"]
-  }
-}
+#   egress {
+#     description     = "Allow Outbound Traffic to ECS Task"
+#     from_port       = 3000
+#     to_port         = 3000
+#     protocol        = "tcp"
+#     cidr_blocks     = ["0.0.0.0/0"]
+#   }
+# }
 
 # resource "aws_security_group" "alb_ssh" {
 #   name        = var.alb_ssh_sg_name

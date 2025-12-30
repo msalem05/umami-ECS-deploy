@@ -24,7 +24,8 @@ module "db" {
   source         = "./modules/rds"
   vpc_id         = module.vpc.vpc_id
   subnet_ids     = module.vpc.private_subnet_id
-  ecs_task_sg_id = module.ecs.ecs_task_sg_id
+  ecs_task_sg_id = module.security_groups.ecs_sg_id
+  db_sg_id       = module.security_groups.db_sg_id
 
 }
 
@@ -41,8 +42,7 @@ module "alb" {
   vpc_cidr        = var.vpc_cidr
   alb_subnet      = module.vpc.public_subnet_id
   alb_logs_bucket = module.s3.alb_logs_bucket
-  ecs_task_sg_id  = module.ecs.ecs_task_sg_id
-
+  alb_sg_id       = module.security_groups.alb_sg_id 
 }
 
 module "ecs" {
@@ -52,9 +52,10 @@ module "ecs" {
   image_repo_url       = module.ecr.repository_url
   task_role_arn        = module.iam.task_role_arn
   execution_role_arn   = module.iam.execution_role_arn
-  alb_sg_id            = module.alb.alb_sg_id
+  alb_sg_id            = module.security_groups.alb_sg_id
   alb_target_group_arn = module.alb.alb_target_group_arn
-  db_sg_id             = module.db.db_sg_id
+  db_sg_id             = module.security_groups.db_sg_id
+  ecs_sg_id            = module.security_groups.ecs_sg_id
 }
 
 module "route53" {
@@ -63,4 +64,10 @@ module "route53" {
   alb_zone_id           = module.alb.alb_zone_id
   acm_validation_record = module.acm.acm_validation_record
   acm_validation_name   = module.acm.acm_validation_name
+}
+
+module "security_groups" {
+  source = "./modules/security_groups"
+  vpc_id = module.vpc.vpc_id
+  vpc_cidr = var.vpc_cidr
 }

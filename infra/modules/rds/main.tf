@@ -30,7 +30,7 @@ resource "aws_db_instance" "postgres" {
   iam_database_authentication_enabled = true
   enabled_cloudwatch_logs_exports     = var.cloudwatch_logs_exports
   copy_tags_to_snapshot               = true
-  vpc_security_group_ids              = [aws_security_group.db_sg.id]
+  vpc_security_group_ids              = [var.db_sg_id]
 
 }
 
@@ -49,16 +49,16 @@ resource "aws_db_snapshot" "umami-db-snapshot" {
   }
 }
 
-resource "aws_security_group" "db_sg" {
-  name        = var.db_sg_name
-  description = "Security group for RDS PostgreSQL"
-  vpc_id      = var.vpc_id
+# resource "aws_security_group" "db_sg" {
+#   name        = var.db_sg_name
+#   description = "Security group for RDS PostgreSQL"
+#   vpc_id      = var.vpc_id
 
-  ingress {
-    description     = "Allow PostgreSQL from ECS tasks"
-    from_port       = 5432
-    to_port         = 5432
-    protocol        = "tcp"
-    security_groups = [var.ecs_task_sg_id]
-  }
-}
+#   ingress {
+#     description     = "Allow PostgreSQL from ECS tasks"
+#     from_port       = 5432
+#     to_port         = 5432
+#     protocol        = "tcp"
+#     security_groups = [var.ecs_task_sg_id]
+#   }
+# }

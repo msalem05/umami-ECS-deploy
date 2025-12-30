@@ -82,3 +82,7 @@ variable "db_port" {
 variable "db_sg_id" {
   type = string
 }
+
+variable "ecs_sg_id" {
+  type = string
+}

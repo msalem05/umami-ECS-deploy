@@ -8,25 +8,25 @@ variable "alb_http_sg_name" {
 }
 
 variable "vpc_cidr" {
-
+    type = string
 }
 
 variable "ecs_sg_name" {
     type = string
+    default = "umami-ecs-sg"
 }
 
 variable "container_port" {
-    type = string
+    type = number
+    default = 3000
 }
 
 variable "db_port" {
     type = number
-}
-
-variable "db_sg_id" {
-    type = string
+    default = 5432
 }
 
 variable "db_sg_name" {
     type = string
+    default = "db-sg"
 }
