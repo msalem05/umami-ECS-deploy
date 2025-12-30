@@ -42,7 +42,7 @@ module "alb" {
   vpc_cidr        = var.vpc_cidr
   alb_subnet      = module.vpc.public_subnet_id
   alb_logs_bucket = module.s3.alb_logs_bucket
-  alb_sg_id       = module.security_groups.alb_sg_id 
+  alb_sg_id       = module.security_groups.alb_sg_id
 }
 
 module "ecs" {
@@ -67,7 +67,7 @@ module "route53" {
 }
 
 module "security_groups" {
-  source = "./modules/security_groups"
-  vpc_id = module.vpc.vpc_id
+  source   = "./modules/security_groups"
+  vpc_id   = module.vpc.vpc_id
   vpc_cidr = var.vpc_cidr
 }
