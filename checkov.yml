@@ -3,6 +3,7 @@ quiet: true
 # Fail the run only when findings are MEDIUM or higher
 soft_fail_on:
   - LOW
+  - INFO
 
 framework:
   - terraform

@@ -8,9 +8,9 @@ permissions:
   id-token: write
   contents: read
 
-defaults:
-  run: 
-    working-directory: infra
+# defaults:
+#   run: 
+#     working-directory: infra
 
 jobs:
   terraform-plan: 
@@ -37,17 +37,21 @@ jobs:
 
       - name: Terraform fmt
         run: terraform fmt -check -recursive
+        working-directory: infra
       
       - name: Terraform init  
         run: terraform init
+        working-directory: infra
         
       - name: Terraform Validate
         run: terraform validate
+        working-directory: infra
          
       - name: TFLint
         run: |
             tflint --init
             tflint --recursive
+        working-directory: infra
       
       - name: Run Checkov Scan
         uses: bridgecrewio/checkov-action@v12
@@ -64,3 +68,4 @@ jobs:
           
       - name: Terraform Plan
         run: terraform plan
+        working-directory: infra
