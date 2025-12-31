@@ -37,7 +37,6 @@ module "alb" {
   source          = "./modules/alb"
   certificate_arn = module.acm.certificate_arn
   vpc_id          = module.vpc.vpc_id
-  vpc_cidr        = var.vpc_cidr
   alb_subnet      = module.vpc.public_subnet_id
   alb_logs_bucket = module.s3.alb_logs_bucket
   alb_sg_id       = module.security_groups.alb_sg_id
@@ -45,14 +44,11 @@ module "alb" {
 
 module "ecs" {
   source               = "./modules/ecs"
-  vpc_id               = module.vpc.vpc_id
   ecs_subnet           = module.vpc.private_subnet_id
   image_repo_url       = module.ecr.repository_url
   task_role_arn        = module.iam.task_role_arn
   execution_role_arn   = module.iam.execution_role_arn
-  alb_sg_id            = module.security_groups.alb_sg_id
   alb_target_group_arn = module.alb.alb_target_group_arn
-  db_sg_id             = module.security_groups.db_sg_id
   ecs_sg_id            = module.security_groups.ecs_sg_id
 }
 
