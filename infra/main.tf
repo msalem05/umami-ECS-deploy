@@ -22,9 +22,7 @@ module "iam" {
 
 module "db" {
   source         = "./modules/rds"
-  vpc_id         = module.vpc.vpc_id
   subnet_ids     = module.vpc.private_subnet_id
-  ecs_task_sg_id = module.security_groups.ecs_sg_id
   db_sg_id       = module.security_groups.db_sg_id
 
 }
