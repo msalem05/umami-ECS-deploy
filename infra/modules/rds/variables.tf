@@ -45,19 +45,6 @@ variable "subnet_ids" {
   type        = list(any)
 }
 
-variable "vpc_id" {
-  type = string
-}
-
-variable "db_sg_name" {
-  type    = string
-  default = "db-sg"
-}
-
-variable "ecs_task_sg_id" {
-  type = string
-}
-
 variable "db_engine_version" {
   type    = string
   default = "18.1"
@@ -73,19 +60,9 @@ variable "monitoring_interval" {
   default = 60
 }
 
-variable "performance_insights_retention_period" {
-  type    = number
-  default = 7 #Free Tier
-}
-
 variable "cloudwatch_logs_exports" {
   type    = list(string)
   default = ["postgresql", "upgrade", "iam-db-auth-error"]
-}
-
-variable "deletion_window" {
-  type    = number
-  default = 30
 }
 
 variable "db_sg_id" {

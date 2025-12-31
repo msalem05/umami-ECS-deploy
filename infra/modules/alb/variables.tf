@@ -7,20 +7,6 @@ variable "vpc_id" {
   type = string
 }
 
-variable "alb_http_sg_name" {
-  type    = string
-  default = "umami_alb_allow-http"
-}
-
-variable "vpc_cidr" {
-  type = string
-}
-
-variable "alb_ssh_sg_name" {
-  type    = string
-  default = "umami_alb_allow-ssh"
-}
-
 variable "alb_subnet" {
   type = list(string)
 }
