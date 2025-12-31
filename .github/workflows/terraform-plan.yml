@@ -56,6 +56,8 @@ jobs:
       - name: Run Checkov Scan
         uses: bridgecrewio/checkov-action@v12
         with: 
+          directory: infra
+          config_file: checkov.yml
           output_format: cli,sarif
           output_file_path: console,results.sarif
           skip_check: CKV_AWS_51,CKV_AWS_136,CKV_AWS_163
