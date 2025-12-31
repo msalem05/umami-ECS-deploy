@@ -21,9 +21,9 @@ module "iam" {
 }
 
 module "db" {
-  source         = "./modules/rds"
-  subnet_ids     = module.vpc.private_subnet_id
-  db_sg_id       = module.security_groups.db_sg_id
+  source     = "./modules/rds"
+  subnet_ids = module.vpc.private_subnet_id
+  db_sg_id   = module.security_groups.db_sg_id
 
 }
 
