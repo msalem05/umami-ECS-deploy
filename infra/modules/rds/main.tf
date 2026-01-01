@@ -26,7 +26,7 @@ resource "aws_db_instance" "postgres" {
   final_snapshot_identifier           = var.final_snapshot
   auto_minor_version_upgrade          = true
   deletion_protection                 = false
-  apply_immediately = true
+  apply_immediately                   = true
   monitoring_interval                 = var.monitoring_interval
   monitoring_role_arn                 = var.enhanced_monitoring_role_arn
   iam_database_authentication_enabled = true
