@@ -32,6 +32,7 @@ resource "aws_db_instance" "postgres" {
   enabled_cloudwatch_logs_exports     = var.cloudwatch_logs_exports
   copy_tags_to_snapshot               = true
   vpc_security_group_ids              = [var.db_sg_id]
+  db_subnet_group_name                = aws_db_subnet_group.private.name
 
 }
 
