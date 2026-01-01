@@ -1,6 +1,6 @@
 quiet: true
 
-# Fail the run only when findings are MEDIUM or higher
+# Fail the run only when findings are medium or higher
 soft-fail-on:
   - LOW
   - INFO

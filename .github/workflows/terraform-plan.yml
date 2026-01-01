@@ -53,7 +53,7 @@ jobs:
         uses: bridgecrewio/checkov-action@v12
         with: 
           directory: infra
-          config_file: .checkov.yml
+          config_file: infra/.checkov.yml
           output_format: cli,sarif
           output_file_path: console,results.sarif
           skip_check: CKV_AWS_163        ## Correct Security configuration is made via cli commands, not terraform managed so Checkov flags it.
