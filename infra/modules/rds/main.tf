@@ -50,17 +50,3 @@ resource "aws_db_snapshot" "umami-db-snapshot" {
     prevent_destroy = false
   }
 }
-
-# resource "aws_security_group" "db_sg" {
-#   name        = var.db_sg_name
-#   description = "Security group for RDS PostgreSQL"
-#   vpc_id      = var.vpc_id
-
-#   ingress {
-#     description     = "Allow PostgreSQL from ECS tasks"
-#     from_port       = 5432
-#     to_port         = 5432
-#     protocol        = "tcp"
-#     security_groups = [var.ecs_task_sg_id]
-#   }
-# }
