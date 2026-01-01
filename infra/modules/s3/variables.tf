@@ -23,10 +23,10 @@ variable "lifecycle_expiration" {
   default = 90
 }
 
-# variable "days_after_initiation" {
-#   type    = number
-#   default = 7
-# }
+variable "days_after_initiation" {
+  type    = number
+  default = 7
+}
 
 variable "noncurrent_days" {
   type    = number

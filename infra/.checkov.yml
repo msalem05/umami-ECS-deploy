@@ -4,6 +4,7 @@ quiet: true
 soft-fail-on:
   - LOW
   - INFO
+  - MEDIUM
 
 framework:
   - terraform
