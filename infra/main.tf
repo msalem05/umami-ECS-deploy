@@ -53,6 +53,8 @@ module "ecs" {
   execution_role_arn   = module.iam.execution_role_arn
   alb_target_group_arn = module.alb.alb_target_group_arn
   ecs_sg_id            = module.security_groups.ecs_sg_id
+
+  depends_on = [module.alb]
 }
 
 module "route53" {
