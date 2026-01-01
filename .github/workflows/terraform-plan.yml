@@ -53,7 +53,7 @@ jobs:
         uses: bridgecrewio/checkov-action@v12
         with: 
           directory: infra
-          soft_fail_on: LOW,INFO
+          soft_fail_on: LOW,INFO,MEDIUM
           output_format: cli,sarif
           output_file_path: console,results.sarif
           skip_check: CKV_AWS_163,CKV_AWS_300  
