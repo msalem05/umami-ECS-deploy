@@ -9,12 +9,6 @@ terraform {
   }
 }
 
-resource "aws_kms_key" "state" {
-  description             = "KMS key for Terraform state bucket encryption"
-  deletion_window_in_days = var.deletion_window
-  enable_key_rotation     = true
-}
-
 resource "aws_s3_bucket" "tf_state" {
   bucket              = var.bucket_name
   object_lock_enabled = true
@@ -62,17 +56,46 @@ resource "aws_s3_bucket_object_lock_configuration" "tf_state" {
   }
 }
 
-resource "aws_kms_key" "alb_logs" {
-  description             = "KMS key for ALB Access Logs bucket encryption"
+data "aws_caller_identity" "account" {
+}
+
+resource "aws_kms_key" "state" {
+  description             = "KMS key for Terraform state bucket encryption"
   deletion_window_in_days = var.deletion_window
   enable_key_rotation     = true
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          AWS = "arn:aws:iam::${data.aws_caller_identity.account.account_id}:root"
+        }
+        Action = "kms:*"
+        Resource = "*"
+      },
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "s3.amazonaws.com"
+        }
+        Action = [
+          "kms:Encrypt",
+          "kms:Decrypt",
+          "kms:ReEncrypt*",
+          "kms:GenerateDataKey*",
+          "kms:DescribeKey"
+        ]
+        Resource = "*"
+      }
+    ]
+  })  
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "alb_logs" {
   bucket = aws_s3_bucket.alb_access_logs.id
   rule {
     apply_server_side_encryption_by_default {
-      kms_master_key_id = aws_kms_key.alb_logs.arn
       sse_algorithm     = "AES256"
     }
   }
@@ -84,10 +107,6 @@ resource "aws_s3_bucket" "alb_access_logs" {
   lifecycle {
     prevent_destroy = true
   }
-}
-
-data "aws_caller_identity" "account" {
-
 }
 
 resource "aws_s3_bucket_policy" "alb_logs" {
