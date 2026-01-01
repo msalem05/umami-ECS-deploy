@@ -68,3 +68,7 @@ variable "cloudwatch_logs_exports" {
 variable "db_sg_id" {
   type = string
 }
+
+variable "enhanced_monitoring_role_arn" {
+  type = string
+}
