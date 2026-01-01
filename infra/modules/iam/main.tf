@@ -36,14 +36,32 @@ resource "aws_iam_role_policy" "ecs_task_execution" {
       {
         Effect = "Allow"
         Action = [
-          "ecr:BatchGetImage",
-          "ecr:GetDownloadUrlForLayer",
           "ecr:GetAuthorizationToken"
         ]
         Resource = "*"
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "ecr:BatchGetImage",
+          "ecr:GetDownloadUrlForLayer"
+        ]
+        Resource = var.ecr_repo_arn
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+        Resource = "${var.cw_log_group_arn}:*"
       }
     ]
   })
+}
+
+data "aws_caller_identity" "account_id" {
+
 }
 
 resource "aws_iam_role" "ecs_task_role" {
@@ -73,11 +91,9 @@ resource "aws_iam_role_policy" "ecs_task" {
       {
         Effect = "Allow"
         Action = [
-          "logs:CreateLogGroup",
-          "logs:CreateLogStream",
-          "logs:PutLogEvents"
+          "rds-db:connect"
         ]
-        Resource = "*"
+        Resource = "arn:aws:rds-db:eu-west-2:${data.aws_caller_identity.account_id}:dbuser:${var.db_id}/${var.db_username}:"
       }
     ]
   })

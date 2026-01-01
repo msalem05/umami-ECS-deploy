@@ -43,36 +43,6 @@ resource "aws_ecs_task_definition" "umami_ecs_task" {
   ])
 }
 
-# resource "aws_security_group" "ecs_sg" {
-#   name        = var.ecs_sg_name
-#   description = "Security group for ECS tasks"
-#   vpc_id      = var.vpc_id
-
-#   ingress {
-#     description     = "Allow inbound from ALB to ECS tasks on container port"
-#     from_port       = var.container_port
-#     to_port         = var.container_port
-#     protocol        = "tcp"
-#     security_groups = [var.alb_sg_id]
-#   }
-
-#   egress {
-#     description     = "Allow outbound traffic from ECS tasks to RDS Instance"
-#     from_port       = var.db_port
-#     to_port         = var.db_port
-#     protocol        = "tcp"
-#     security_groups = [var.db_sg_id]
-#   }
-
-#   egress {
-#     description = "Allow outbound traffic from ECS tasks to AWS services"
-#     from_port   = 443
-#     to_port     = 443
-#     protocol    = "tcp"
-#     cidr_blocks = ["0.0.0.0/0"]
-#   }
-# }
-
 resource "aws_ecs_service" "umami_ecs_service" {
   name            = var.app_name
   cluster         = aws_ecs_cluster.umami_cluster.id
@@ -90,4 +60,49 @@ resource "aws_ecs_service" "umami_ecs_service" {
     subnets         = var.ecs_subnet
     security_groups = [var.ecs_sg_id]
   }
+}
+
+resource "aws_cloudwatch_log_group" "ecs_cw_logs" {
+  name = var.cw_log_group_name
+  retention_in_days = var.retention_in_days
+  kms_key_id = aws_kms_key.cw_logs.arn
+}
+
+data "aws_caller_identity" "account" {
+
+}
+
+resource "aws_kms_key" "cw_logs" {
+  description = "KMS key for ECS Cloudwatch Logs" 
+  deletion_window_in_days = var.deletion_window_in_days
+  enable_key_rotation = true
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          AWS = "arn:aws:iam::${data.aws_caller_identity.account.account_id}:root"
+        }
+        Action = "kms:*"
+        Resource = "*"
+      },
+
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "logs.eu-west-2.amazonaws.com"
+        }
+        Action = [
+          "kms:Encrypt",
+          "kms:Decrypt",
+          "kms:ReEncrypt*",
+          "kms:GenerateDataKey*",
+          "kms:DescribeKey"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
 }

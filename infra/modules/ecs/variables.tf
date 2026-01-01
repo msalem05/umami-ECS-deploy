@@ -64,3 +64,18 @@ variable "app_name" {
 variable "ecs_sg_id" {
   type = string
 }
+
+variable "retention_in_days" {
+  type = number
+  default = 14
+}
+
+variable "cw_log_group_name" {
+  type = string
+  default = "ecs/umami"
+}
+
+variable "deletion_window_in_days" {
+  type = number
+  default = 30
+}
