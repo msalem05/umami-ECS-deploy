@@ -60,7 +60,7 @@ resource "aws_iam_role_policy" "ecs_task_execution" {
   })
 }
 
-data "aws_caller_identity" "account_id" {
+data "aws_caller_identity" "account" {
 
 }
 
@@ -93,7 +93,7 @@ resource "aws_iam_role_policy" "ecs_task" {
         Action = [
           "rds-db:connect"
         ]
-        Resource = "arn:aws:rds-db:eu-west-2:${data.aws_caller_identity.account_id}:dbuser:${var.db_id}/${var.db_username}:"
+        Resource = "arn:aws:rds-db:eu-west-2:${data.aws_caller_identity.account.account_id}:dbuser:${var.db_id}/${var.db_username}:"
       }
     ]
   })
