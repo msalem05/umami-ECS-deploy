@@ -161,7 +161,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "alb_logs" {
     }
 
     abort_incomplete_multipart_upload {
-      days_after_initiation = var.days_after_initiation
+      days_after_initiation = 7
     }
   }
 }

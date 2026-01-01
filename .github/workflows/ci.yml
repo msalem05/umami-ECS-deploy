@@ -1,7 +1,7 @@
 name: Build and Push Docker Image to ECR
 
 on:
-    push:
+    # push:
     #   paths:
     #     - "umami/**"
     workflow_dispatch:
