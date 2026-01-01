@@ -7,15 +7,11 @@ on:
 permissions:
   id-token: write
   contents: read
-
-# defaults:
-#   run: 
-#     working-directory: infra
+  security-events: write
 
 jobs:
   terraform-plan: 
     runs-on: ubuntu-latest
-    # env:
 
     steps:
       - name: Checkout Code
@@ -63,7 +59,7 @@ jobs:
           skip_check: CKV_AWS_163        ## Correct Security configuration is made via cli commands, not terraform managed so Checkov flags it.
 
       - name: Upload Checkov Results to Security Tab
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         if: success() || failure()
         with:
           sarif_file: results.sarif
