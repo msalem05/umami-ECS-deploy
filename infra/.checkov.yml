@@ -4,7 +4,10 @@ quiet: true
 soft-fail-on:
   - LOW
   - INFO
-  - MEDIUM
+  - MEDIUM 
+  - HIGH 
+  - CRITICAL
+
 
 framework:
   - terraform
