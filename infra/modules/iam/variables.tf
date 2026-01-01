@@ -33,3 +33,8 @@ variable "db_id" {
 variable "db_username" {
   type = string
 }
+
+variable  "rds_enhanced_monitoring_role_name" {
+  type = string
+  default = "rds-enhanced-monitoring-role"
+}

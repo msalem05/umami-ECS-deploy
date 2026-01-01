@@ -7,3 +7,7 @@ output "execution_role_arn" {
   description = "ARN of the ECS Task Execution Role"
   value       = aws_iam_role.ecs_task_execution_role.arn
 }
+
+output "enhanced_monitoring_role_arn" {
+  value = aws_iam_role.rds_enhanced_monitoring.arn
+}
