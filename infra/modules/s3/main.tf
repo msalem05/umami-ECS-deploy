@@ -71,7 +71,7 @@ resource "aws_kms_key" "state" {
         Principal = {
           AWS = "arn:aws:iam::${data.aws_caller_identity.account.account_id}:root"
         }
-        Action = "kms:*"
+        Action   = "kms:*"
         Resource = "*"
       },
       {
@@ -89,14 +89,14 @@ resource "aws_kms_key" "state" {
         Resource = "*"
       }
     ]
-  })  
+  })
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "alb_logs" {
   bucket = aws_s3_bucket.alb_access_logs.id
   rule {
     apply_server_side_encryption_by_default {
-      sse_algorithm     = "AES256"
+      sse_algorithm = "AES256"
     }
   }
 }
