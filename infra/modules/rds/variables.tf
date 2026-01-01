@@ -62,7 +62,7 @@ variable "monitoring_interval" {
 
 variable "cloudwatch_logs_exports" {
   type    = list(string)
-  default = ["postgresql", "upgrade", "iam-db-auth-error"]
+  default = ["postgresql", "upgrade"]
 }
 
 variable "db_sg_id" {
