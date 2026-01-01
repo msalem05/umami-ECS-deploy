@@ -66,16 +66,16 @@ variable "ecs_sg_id" {
 }
 
 variable "retention_in_days" {
-  type = number
+  type    = number
   default = 14
 }
 
 variable "cw_log_group_name" {
-  type = string
+  type    = string
   default = "ecs/umami"
 }
 
 variable "deletion_window_in_days" {
-  type = number
+  type    = number
   default = 30
 }

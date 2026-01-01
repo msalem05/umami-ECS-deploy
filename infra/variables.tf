@@ -19,6 +19,6 @@ variable "private_subnet_cidr" {
 }
 
 variable "db_username" {
-  type = string
+  type    = string
   default = "umamidb"
 }

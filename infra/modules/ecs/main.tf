@@ -63,9 +63,9 @@ resource "aws_ecs_service" "umami_ecs_service" {
 }
 
 resource "aws_cloudwatch_log_group" "ecs_cw_logs" {
-  name = var.cw_log_group_name
+  name              = var.cw_log_group_name
   retention_in_days = var.retention_in_days
-  kms_key_id = aws_kms_key.cw_logs.arn
+  kms_key_id        = aws_kms_key.cw_logs.arn
 }
 
 data "aws_caller_identity" "account" {
@@ -73,9 +73,9 @@ data "aws_caller_identity" "account" {
 }
 
 resource "aws_kms_key" "cw_logs" {
-  description = "KMS key for ECS Cloudwatch Logs" 
+  description             = "KMS key for ECS Cloudwatch Logs"
   deletion_window_in_days = var.deletion_window_in_days
-  enable_key_rotation = true
+  enable_key_rotation     = true
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -85,7 +85,7 @@ resource "aws_kms_key" "cw_logs" {
         Principal = {
           AWS = "arn:aws:iam::${data.aws_caller_identity.account.account_id}:root"
         }
-        Action = "kms:*"
+        Action   = "kms:*"
         Resource = "*"
       },
 

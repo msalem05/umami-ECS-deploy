@@ -17,10 +17,10 @@ module "ecr" {
 }
 
 module "iam" {
-  source = "./modules/iam"
-  ecr_repo_arn = module.ecr.repository_arn
-  db_id = module.db.db_id
-  db_username = var.db_username
+  source           = "./modules/iam"
+  ecr_repo_arn     = module.ecr.repository_arn
+  db_id            = module.db.db_id
+  db_username      = var.db_username
   cw_log_group_arn = module.ecs.cw_log_group_arn
 }
 
