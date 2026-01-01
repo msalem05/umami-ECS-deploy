@@ -56,6 +56,23 @@ resource "aws_s3_bucket_object_lock_configuration" "tf_state" {
   }
 }
 
+resource "aws_s3_bucket_lifecycle_configuration" "tf_state" {
+  bucket = aws_s3_bucket.tf_state.id
+
+  rule {
+    id = "cleanup-old-state-versions"
+    status = "Enabled"
+
+    noncurrent_version_expiration {
+      noncurrent_days = var.noncurrent_days
+    }
+
+    abort_incomplete_multipart_upload {
+      days_after_initiation = var.tfstate_days_after_initiation
+    }
+  }
+}
+
 data "aws_caller_identity" "account" {
 }
 
@@ -127,3 +144,25 @@ resource "aws_s3_bucket_policy" "alb_logs" {
     ]
   })
 }
+
+resource "aws_s3_bucket_lifecycle_configuration" "alb_logs" {
+  bucket = aws_s3_bucket.alb_access_logs.id
+  
+  rule {
+    id = "alb-access-logs-retention"
+    status = "Enabled"
+
+    filter {
+      prefix = "AWSLogs/"
+    }
+
+    expiration {
+      days = var.lifecycle_expiration
+    }
+
+    abort_incomplete_multipart_upload {
+      days_after_initiation = var.days_after_initiation
+    }
+  }
+}    
+
