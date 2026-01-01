@@ -19,21 +19,21 @@ variable "deletion_window" {
 }
 
 variable "lifecycle_expiration" {
-  type = number
+  type    = number
   default = 90
 }
 
 variable "days_after_initiation" {
-  type = number
+  type    = number
   default = 7
 }
 
 variable "noncurrent_days" {
-  type = number
+  type    = number
   default = 30
 }
 
 variable "tfstate_days_after_initiation" {
-  type = number
+  type    = number
   default = 7
 }

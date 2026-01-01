@@ -60,7 +60,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "tf_state" {
   bucket = aws_s3_bucket.tf_state.id
 
   rule {
-    id = "cleanup-old-state-versions"
+    id     = "cleanup-old-state-versions"
     status = "Enabled"
 
     noncurrent_version_expiration {
@@ -147,9 +147,9 @@ resource "aws_s3_bucket_policy" "alb_logs" {
 
 resource "aws_s3_bucket_lifecycle_configuration" "alb_logs" {
   bucket = aws_s3_bucket.alb_access_logs.id
-  
+
   rule {
-    id = "alb-access-logs-retention"
+    id     = "alb-access-logs-retention"
     status = "Enabled"
 
     filter {
@@ -164,5 +164,5 @@ resource "aws_s3_bucket_lifecycle_configuration" "alb_logs" {
       days_after_initiation = var.days_after_initiation
     }
   }
-}    
+}
 
