@@ -10,7 +10,7 @@ variable "retention_days" {
 
 variable "alb_logs_bucket_name" {
   type    = string
-  default = "alb-access-logss"
+  default = "alb-access-logss5"
 }
 
 variable "deletion_window" {
