@@ -58,7 +58,7 @@ resource "aws_iam_role_policy" "ecs_task_execution" {
       }
     ]
   })
-  depends_on = [ aws_iam_role.ecs_task_execution_role ]
+  depends_on = [aws_iam_role.ecs_task_execution_role]
 }
 
 data "aws_caller_identity" "account" {
@@ -98,7 +98,7 @@ resource "aws_iam_role_policy" "ecs_task" {
       }
     ]
   })
-  depends_on = [ aws_iam_role.ecs_task_role ]
+  depends_on = [aws_iam_role.ecs_task_role]
 }
 
 resource "aws_iam_role" "rds_enhanced_monitoring" {
