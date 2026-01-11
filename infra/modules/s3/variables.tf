@@ -10,7 +10,7 @@ variable "retention_days" {
 
 variable "alb_logs_bucket_name" {
   type    = string
-  default = "umami-alb-access-logs-${random_id.suffix.hex}"
+  default = "umami-alb-access-logss5"
 }
 
 variable "deletion_window" {
