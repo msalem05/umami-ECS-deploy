@@ -40,7 +40,7 @@ module "alb" {
   source          = "./modules/alb"
   certificate_arn = module.acm.certificate_arn
   vpc_id          = module.vpc.vpc_id
-  alb_subnets      = module.vpc.public_subnet_id
+  alb_subnets     = module.vpc.public_subnet_id
   alb_logs_bucket = module.s3.alb_logs_bucket
   alb_sg_id       = module.security_groups.alb_sg_id
 }
