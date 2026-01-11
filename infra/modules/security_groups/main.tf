@@ -94,8 +94,8 @@ resource "aws_security_group_rule" "db_ingress" {
   type                     = "ingress"
   description              = "Allow PostgreSQL from ECS tasks"
   security_group_id        = aws_security_group.db_sg.id
-  from_port                = 5432
-  to_port                  = 5432
+  from_port                = var.db_port
+  to_port                  = var.db_port
   source_security_group_id = aws_security_group.ecs_sg.id
   protocol                 = "tcp"
 }
