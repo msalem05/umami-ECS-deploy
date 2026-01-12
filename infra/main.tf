@@ -32,13 +32,13 @@ module "db" {
 }
 
 module "acm" {
-  source                = "./modules/acm"
+  source = "./modules/acm"
 }
 
 module "acm_validation" {
-  source = "./modules/acm_validation"
+  source                = "./modules/acm_validation"
   dns_validation_record = module.route53.dns_validation_record
-  acm_certificate_arn = module.acm.certificate_arn
+  acm_certificate_arn   = module.acm.certificate_arn
 }
 
 module "alb" {

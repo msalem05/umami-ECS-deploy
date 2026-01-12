@@ -1,7 +1,7 @@
 variable "acm_certificate_arn" {
-    type = string
+  type = string
 }
 
 variable "dns_validation_record" {
-    type = string
+  type = string
 }
