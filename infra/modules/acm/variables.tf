@@ -1,3 +1,3 @@
-variable "dns_validation_record" {
-  type = string
-}
+# variable "dns_validation_record" {
+#   type = string
+# }
