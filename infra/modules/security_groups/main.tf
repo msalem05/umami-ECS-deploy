@@ -15,9 +15,9 @@ resource "aws_security_group" "alb" {
   description = "Security group for ALB allowing HTTP and HTTPS inbound traffic"
   vpc_id      = var.vpc_id
 
-  # lifecycle {
-  #   create_before_destroy = true
-  # }
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_security_group_rule" "alb_ingress_http" {
@@ -56,9 +56,9 @@ resource "aws_security_group" "ecs_sg" {
   description = "Security group for ECS tasks"
   vpc_id      = var.vpc_id
 
-  # lifecycle {
-  #   create_before_destroy = true
-  # }
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_security_group_rule" "ecs_ingress_alb" {
@@ -96,6 +96,10 @@ resource "aws_security_group" "db_sg" {
   name        = var.db_sg_name
   description = "Security group for RDS PostgreSQL"
   vpc_id      = var.vpc_id
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_security_group_rule" "db_ingress" {
