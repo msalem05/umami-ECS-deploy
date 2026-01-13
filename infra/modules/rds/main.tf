@@ -46,7 +46,7 @@ resource "aws_db_subnet_group" "private" {
 
 resource "aws_db_snapshot" "umami-db-snapshot" {
   db_instance_identifier = aws_db_instance.postgres.identifier
-  db_snapshot_identifier = var.snapshot_identifier
+  db_snapshot_identifier = "${var.snapshot_identifier}-${formatdate("YYYYMMDDhhmmss", timestamp())}"
 
   lifecycle {
     prevent_destroy = false
