@@ -67,3 +67,7 @@ variable "alb_logs_bucket" {
 variable "alb_sg_id" {
   type = string
 }
+
+variable "acm_validation_id" {
+  type = string
+}

@@ -71,8 +71,5 @@ variable "db_sg_id" {
 
 variable "enhanced_monitoring_role_arn" {
   type = string
-}
-
-variable "iam_dependency" {
-  type = string
+  default = "arn:aws:iam::622703418024:role/rds-enhanced-monitoring-role"
 }

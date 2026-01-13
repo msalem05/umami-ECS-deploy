@@ -83,14 +83,16 @@ resource "aws_lb_listener" "alb_listener_https" {
   ssl_policy        = "ELBSecurityPolicy-TLS-1-2-2017-01"
   certificate_arn   = var.certificate_arn
 
-  timeouts {
-    create = "30m"
-  }
+  # timeouts {
+  #   create = "30m"
+  # }
 
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.umami_tg.arn
   }
+
+  depends_on = [var.acm_validation_id]
 }
 
 resource "aws_lb_target_group" "umami_tg" {

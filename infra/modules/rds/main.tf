@@ -35,7 +35,6 @@ resource "aws_db_instance" "postgres" {
   vpc_security_group_ids              = [var.db_sg_id]
   db_subnet_group_name                = aws_db_subnet_group.private.name
 
-  depends_on = [var.iam_dependency]
 }
 
 resource "aws_db_subnet_group" "private" {

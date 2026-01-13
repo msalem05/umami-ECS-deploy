@@ -28,8 +28,7 @@ module "db" {
   source                       = "./modules/rds"
   subnet_ids                   = module.vpc.private_subnet_id
   db_sg_id                     = module.security_groups.db_sg_id
-  enhanced_monitoring_role_arn = module.iam.enhanced_monitoring_role_arn
-  iam_dependency               = module.iam.enhanced_monitoring_policy_attachment_id
+  # enhanced_monitoring_role_arn = module.iam.enhanced_monitoring_role_arn
 }
 
 module "acm" {
@@ -43,12 +42,13 @@ module "acm_validation" {
 }
 
 module "alb" {
-  source          = "./modules/alb"
-  certificate_arn = module.acm.certificate_arn
-  vpc_id          = module.vpc.vpc_id
-  alb_subnets     = module.vpc.public_subnet_id
-  alb_logs_bucket = module.s3.alb_logs_bucket
-  alb_sg_id       = module.security_groups.alb_sg_id
+  source            = "./modules/alb"
+  certificate_arn   = module.acm.certificate_arn
+  vpc_id            = module.vpc.vpc_id
+  alb_subnets       = module.vpc.public_subnet_id
+  alb_logs_bucket   = module.s3.alb_logs_bucket
+  alb_sg_id         = module.security_groups.alb_sg_id
+  acm_validation_id = module.acm_validation.acm_validation_id
 }
 
 module "ecs" {

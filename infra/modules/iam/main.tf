@@ -101,24 +101,24 @@ resource "aws_iam_role_policy" "ecs_task" {
   depends_on = [aws_iam_role.ecs_task_role]
 }
 
-resource "aws_iam_role" "rds_enhanced_monitoring" {
-  name = var.rds_enhanced_monitoring_role_name
+# resource "aws_iam_role" "rds_enhanced_monitoring" {
+#   name = var.rds_enhanced_monitoring_role_name
 
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Principal = {
-          Service = "monitoring.rds.amazonaws.com"
-        }
-        Action = "sts:AssumeRole"
-      }
-    ]
-  })
-}
+#   assume_role_policy = jsonencode({
+#     Version = "2012-10-17"
+#     Statement = [
+#       {
+#         Effect = "Allow"
+#         Principal = {
+#           Service = "monitoring.rds.amazonaws.com"
+#         }
+#         Action = "sts:AssumeRole"
+#       }
+#     ]
+#   })
+# }
 
-resource "aws_iam_role_policy_attachment" "rds_enhanced_monitoring" {
-  role       = aws_iam_role.rds_enhanced_monitoring.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole"
-}
+# resource "aws_iam_role_policy_attachment" "rds_enhanced_monitoring" {
+#   role       = aws_iam_role.rds_enhanced_monitoring.name
+#   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole"
+# }
