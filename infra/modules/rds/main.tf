@@ -23,7 +23,7 @@ resource "aws_db_instance" "postgres" {
   maintenance_window                  = var.maintenance_window
   backup_retention_period             = var.backup_retention_period
   skip_final_snapshot                 = false
-  final_snapshot_identifier           = var.final_snapshot
+  final_snapshot_identifier           = "${var.final_snapshot}-${formatdate("YYYYMMDDhhmmss", timestamp())}"
   auto_minor_version_upgrade          = true
   deletion_protection                 = false
   apply_immediately                   = true

@@ -41,13 +41,14 @@ resource "aws_security_group_rule" "alb_ingress_https" {
 }
 
 resource "aws_security_group_rule" "alb_egress_ecs" {
-  type                     = "egress"
-  description              = "Allow Outbound Traffic to ECS Task"
-  security_group_id        = aws_security_group.alb.id
-  from_port                = var.container_port
-  to_port                  = var.container_port
-  source_security_group_id = aws_security_group.ecs_sg.id
-  protocol                 = "tcp"
+  type              = "egress"
+  description       = "Allow Outbound Traffic to ECS Task"
+  security_group_id = aws_security_group.alb.id
+  from_port         = var.container_port
+  to_port           = var.container_port
+  cidr_blocks       = [var.vpc_cidr]
+  # source_security_group_id = aws_security_group.ecs_sg.id
+  protocol = "tcp"
 }
 
 #ECS Task Security Group and Rules
@@ -72,13 +73,14 @@ resource "aws_security_group_rule" "ecs_ingress_alb" {
 }
 
 resource "aws_security_group_rule" "ecs_egress_db" {
-  type                     = "egress"
-  description              = "Allow outbound traffic from ECS tasks to DB Instance"
-  security_group_id        = aws_security_group.ecs_sg.id
-  from_port                = var.db_port
-  to_port                  = var.db_port
-  source_security_group_id = aws_security_group.db_sg.id
-  protocol                 = "tcp"
+  type              = "egress"
+  description       = "Allow outbound traffic from ECS tasks to DB Instance"
+  security_group_id = aws_security_group.ecs_sg.id
+  from_port         = var.db_port
+  to_port           = var.db_port
+  cidr_blocks       = [var.vpc_cidr]
+  # source_security_group_id = aws_security_group.db_sg.id
+  protocol = "tcp"
 }
 
 resource "aws_security_group_rule" "ecs_egress" {

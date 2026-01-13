@@ -19,6 +19,8 @@ resource "aws_ecr_repository" "repo" {
   # encryption_configuration {
   #   encryption_type = "AE256"
   # }
+
+  force_delete = true
 }
 
 # resource "aws_ecr_lifecycle_policy" "" {
