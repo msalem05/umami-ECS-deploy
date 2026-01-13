@@ -29,8 +29,7 @@ module "db" {
   subnet_ids                   = module.vpc.private_subnet_id
   db_sg_id                     = module.security_groups.db_sg_id
   enhanced_monitoring_role_arn = module.iam.enhanced_monitoring_role_arn
-
-  depends_on = [module.iam]
+  iam_dependency               = module.iam.enhanced_monitoring_policy_attachment_id
 }
 
 module "acm" {

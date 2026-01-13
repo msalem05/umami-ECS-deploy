@@ -34,7 +34,8 @@ resource "aws_db_instance" "postgres" {
   copy_tags_to_snapshot               = true
   vpc_security_group_ids              = [var.db_sg_id]
   db_subnet_group_name                = aws_db_subnet_group.private.name
-  #testing pipeline 
+
+  depends_on = [var.iam_dependency]
 }
 
 resource "aws_db_subnet_group" "private" {

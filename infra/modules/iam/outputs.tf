@@ -11,3 +11,7 @@ output "execution_role_arn" {
 output "enhanced_monitoring_role_arn" {
   value = aws_iam_role.rds_enhanced_monitoring.arn
 }
+
+output "enhanced_monitoring_policy_attachment_id" {
+  value = aws_iam_role_policy_attachment.rds_enhanced_monitoring.id
+}

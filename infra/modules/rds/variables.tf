@@ -72,3 +72,7 @@ variable "db_sg_id" {
 variable "enhanced_monitoring_role_arn" {
   type = string
 }
+
+variable "iam_dependency" {
+  type = string
+}
