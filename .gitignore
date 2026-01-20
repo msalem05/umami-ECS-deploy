@@ -47,3 +47,9 @@ yarn-error.log*
 .terraform.tfstate.lock.info
 terraform.tfstate
 terraform.tfstate.backup
+terraform.tfstate.1768784743.backup
+backup.tfstate
+terraform.tfstate.1768928831.backup
+terraform.tfstate.1768928848.backup
+terraform.tfstate.1768928867.backup
+terraform.tfstate.1768928886.backup

@@ -1,28 +1,35 @@
 name: Terraform Destroy
 
 on:
-    workflow_dispatch:
-      inputs:
-        confirm:
-          description: "Type DESTROY to confirm"
-          required: true
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: "Type DESTROY to confirm"
+        required: true
 
 permissions:
   id-token: write
   contents: read
 
 defaults:
-  run: 
+  run:
     working-directory: infra
 
 jobs:
-  terraform-destroy: 
+  terraform-destroy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-      
+
+      - name: Confirm destroy
+        run: |
+          if [ "${{ github.event.inputs.confirm }}" != "DESTROY" ]; then
+            echo "Confirmation failed. Type DESTROY to run this workflow."
+            exit 1
+          fi
+
       - name: Configure AWS Credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -34,31 +41,17 @@ jobs:
         with:
           terraform_version: 1.7.0
 
-      - name: Terraform init  
-        run: terraform init
+      - name: Terraform fmt 
+        run: terraform fmt -check -recursive
+
+      - name: Terraform init
+        run: terraform init -reconfigure
+
+      - name: Terraform validate
+        run: terraform validate
 
       - name: Terraform Plan (Destroy)
-        run: |
-          terraform plan -destroy \
-            -target=module.ecs \
-            -target=module.alb \
-            -target=module.vpc \
-            -target=module.rds \
-            -target=module.acm \
-            -target=module.iam \
-            -target=module.route53 \
-            -target=module.security_groups \
-            -target=module.acm_validation
+        run: terraform plan -destroy 
 
       - name: Terraform Destroy
-        run: | 
-          terraform destroy -auto-approve \
-            -target=module.ecs \
-            -target=module.alb \
-            -target=module.vpc \
-            -target=module.rds \
-            -target=module.acm \
-            -target=module.iam \
-            -target=module.route53 \
-            -target=module.security_groups \
-            -target=module.acm_validation
+        run: terraform destroy -auto-approve 

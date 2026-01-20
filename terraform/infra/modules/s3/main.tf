@@ -122,7 +122,7 @@ resource "aws_s3_bucket" "alb_access_logs" {
   bucket = var.alb_logs_bucket_name
 
   lifecycle {
-    prevent_destroy = false 
+    prevent_destroy = false
   }
 }
 
