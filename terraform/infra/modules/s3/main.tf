@@ -73,8 +73,8 @@ terraform {
 # #   }
 # # }
 
-data "aws_caller_identity" "account" {
-}
+# data "aws_caller_identity" "account" {
+# }
 
 # resource "aws_kms_key" "state" {
 #   description             = "KMS key for Terraform state bucket encryption"
@@ -109,60 +109,60 @@ data "aws_caller_identity" "account" {
 #   })
 # }
 
-resource "aws_s3_bucket_server_side_encryption_configuration" "alb_logs" {
-  bucket = aws_s3_bucket.alb_access_logs.id
-  rule {
-    apply_server_side_encryption_by_default {
-      sse_algorithm = "AES256"
-    }
-  }
-}
+# resource "aws_s3_bucket_server_side_encryption_configuration" "alb_logs" {
+#   bucket = aws_s3_bucket.alb_access_logs.id
+#   rule {
+#     apply_server_side_encryption_by_default {
+#       sse_algorithm = "AES256"
+#     }
+#   }
+# }
 
-resource "aws_s3_bucket" "alb_access_logs" {
-  bucket = var.alb_logs_bucket_name
+# resource "aws_s3_bucket" "alb_access_logs" {
+#   bucket = var.alb_logs_bucket_name
 
-  lifecycle {
-    prevent_destroy = false
-  }
-}
+#   lifecycle {
+#     prevent_destroy = false
+#   }
+# }
 
-resource "aws_s3_bucket_policy" "alb_logs" {
-  bucket = aws_s3_bucket.alb_access_logs.id
+# resource "aws_s3_bucket_policy" "alb_logs" {
+#   bucket = aws_s3_bucket.alb_access_logs.id
 
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Sid    = "ALBAccessLogsWrite"
-        Effect = "Allow"
-        Principal = {
-          Service = "logdelivery.elasticloadbalancing.amazonaws.com"
-        }
-        Action   = "s3:PutObject"
-        Resource = "arn:aws:s3:::${aws_s3_bucket.alb_access_logs.bucket}/AWSLogs/${data.aws_caller_identity.account.account_id}/*"
-      }
-    ]
-  })
-}
+#   policy = jsonencode({
+#     Version = "2012-10-17"
+#     Statement = [
+#       {
+#         Sid    = "ALBAccessLogsWrite"
+#         Effect = "Allow"
+#         Principal = {
+#           Service = "logdelivery.elasticloadbalancing.amazonaws.com"
+#         }
+#         Action   = "s3:PutObject"
+#         Resource = "arn:aws:s3:::${aws_s3_bucket.alb_access_logs.bucket}/AWSLogs/${data.aws_caller_identity.account.account_id}/*"
+#       }
+#     ]
+#   })
+# }
 
-resource "aws_s3_bucket_lifecycle_configuration" "alb_logs" {
-  bucket = aws_s3_bucket.alb_access_logs.id
+# resource "aws_s3_bucket_lifecycle_configuration" "alb_logs" {
+#   bucket = aws_s3_bucket.alb_access_logs.id
 
-  rule {
-    id     = "alb-access-logs-retention"
-    status = "Enabled"
+#   rule {
+#     id     = "alb-access-logs-retention"
+#     status = "Enabled"
 
-    filter {
-      prefix = "AWSLogs/"
-    }
+#     filter {
+#       prefix = "AWSLogs/"
+#     }
 
-    expiration {
-      days = var.lifecycle_expiration
-    }
+#     expiration {
+#       days = var.lifecycle_expiration
+#     }
 
-    abort_incomplete_multipart_upload {
-      days_after_initiation = var.days_after_initiation
-    }
-  }
-}
+#     abort_incomplete_multipart_upload {
+#       days_after_initiation = var.days_after_initiation
+#     }
+#   }
+# }
 
